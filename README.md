@@ -1,2 +1,4 @@
-temp-file-storage
-=================
+conf-files
+==========
+
+Linux configuration files.
