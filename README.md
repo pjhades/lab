@@ -1,4 +1,2 @@
-conf-files
-==========
-
-Linux configuration files.
+Junk files
+===================
