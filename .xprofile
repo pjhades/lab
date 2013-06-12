@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#export XMODIFIERS="@im=fcitx"
+#export GTK_IM_MODULE="fcitx"
+#export QT_IM_MODULE="fcitx"
+
+xrdb ~/.Xresources &
+xset r rate 200 20 &
+xset -b
+xcompmgr &
+conky &
+#feh --bg-scale ~/Pictures/nuzzle_nose_by_mandated-d5mw3nz.jpg &
+#feh --bg-scale ~/Pictures/cuteness_overload_by_mandated-d5mvu9i.jpg &
+feh --bg-scale ~/Pictures/ragdoll_wallpaper_by_maibek-d4wh28q.jpg &
+fbpanel &
