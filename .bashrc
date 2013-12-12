@@ -1,7 +1,8 @@
 # Customized prompt
 # add \T \d to show current time and date
 
-PS1='\[\e[1;38;5;184m\][\d \T]\[\e[0m\] \[\e[1;37m\]\u\[\e[0m\]@\[\e[1;36m\]\h \[\e[1;35m\]\W\[\e[0m\]\n\[\e[1;33m\]\$\[\e[0m\] '
+#PS1='\[\e[1;38;5;184m\][\d \T]\[\e[0m\] \[\e[1;37m\]\u\[\e[0m\]@\[\e[1;36m\]\h \[\e[1;35m\]\W\[\e[0m\]\n\[\e[1;33m\]\$\[\e[0m\] '
+PS1='\[\e[1;37m\]\u\[\e[0m\]@\[\e[1;36m\]\h \[\e[1;35m\]\W\[\e[0m\]\n\[\e[1;33m\]\$\[\e[0m\] '
 PS2='\[\e[1;33m\]>\[\e[0m\] '
 
 [ -z "$PS1" ] && return
@@ -43,6 +44,6 @@ export LESS_TERMCAP_mb=$'\E[01;38;5;12m'
 export LESS_TERMCAP_md=$'\E[01;38;5;80m' # section titles
 export LESS_TERMCAP_me=$'\E[0m'
 export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;38;5;106m' # command line
+export LESS_TERMCAP_so=$'\E[01;38;5;199m' # command line
 export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;38;5;173m' # option argument
+export LESS_TERMCAP_us=$'\E[01;38;5;68m' # option argument
