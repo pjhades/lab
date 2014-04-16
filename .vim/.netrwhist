@@ -1,7 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/home/pluto/Programming/lab/site/theme/css'
-let g:netrw_dirhist_2='/home/pluto/Programming/lab/site/files'
-let g:netrw_dirhist_3='/home/pluto/Programming/lab/posts'
-let g:netrw_dirhist_4='/home/pluto/Programming/lab/site/theme/views'
-let g:netrw_dirhist_5='/home/pluto/Programming/lab/site/post/2012/08/06/lighttpd1-4-source-node-connection'
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/pluto/Programming/github/repo/tsar/src'
+let g:netrw_dirhist_2='/home/pluto/Programming/github/other/Varnish-Cache/lib'
+let g:netrw_dirhist_3='/home/pluto/Programming/github/other/Varnish-Cache/bin'
