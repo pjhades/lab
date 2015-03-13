@@ -1,14 +1,11 @@
 # Customized prompt
-# add \T \d to show current time and date
-
-#PS1='\[\e[1;37m\]\u\[\e[0m\]@\[\e[1;36m\]\h \[\e[1;35m\]\W\[\e[0m\]\n\[\e[1;33m\]→ \[\e[0m\] '
-PS1='\[\e[1;37m\]\u\[\e[0m\] \[\e[1;35m\]\W\[\e[0m\]\n\[\e[1;33m\]→ \[\e[0m\] '
-PS2='\[\e[1;33m\]>\[\e[0m\] '
+PS1='\[\e[1;32m\]\u\[\e[0m\]~\[\e[33m\]\h\[\e[0m\] \[\e[1;33m\]\W\[\e[0m\]\n\[\e[1;77m\]→ \[\e[0m\] '
+PS2='\[\e[1;31m\]>\[\e[0m\] '
 
 [ -z "$PS1" ] && return
 
 # Aliases
-alias ls='ls --color=auto'
+alias ls='ls -G'
 alias ll='ls -l'
 alias la='ls -a'
 alias rm='rm -i'
@@ -16,25 +13,11 @@ alias mv='mv -i'
 alias cp='cp -i'
 alias vi='vim'
 
-# Auto-completion
-complete -cf sudo
-complete -cf man
-complete -cf pacman
-
-[ -r /etc/bash_completion   ] && . /etc/bash_completion
-[ -r ~/.git-completion.bash   ] && . ~/.git-completion.bash
-
 # Set vi command line editing mode
 set -o vi
 
-# Exporting environment variables
-#export CDPATH=":~/CS:~/Programming"
-export GRE_HOME="/usr/lib/xulrunner-2.0/"
-
-# fcitx
-export GTK_IM_MODULE=xim
-export QT_IM_MODULE=xim
-export XMODIFIERS="@im=fcitx"
+export GOPATH='/Users/pjhades/code/go'
+export PATH="$PATH:$GOPATH/bin"
 
 export HISTCONTROL=ignoredups
 export TERM=xterm-256color
@@ -47,3 +30,8 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;48;5;52m' # command line
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;38;5;68m' # option argument
+
+# fuck the fn key binding under tmux
+if [ -n "$TMUX" ]; then
+    export TERM="screen-256color"
+fi
