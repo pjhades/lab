@@ -1,10 +1,21 @@
-# Customized prompt
-PS1='\[\e[1;32m\]\u\[\e[0m\]~\[\e[33m\]\h\[\e[0m\] \[\e[1;33m\]\W\[\e[0m\]\n\[\e[1;77m\]→ \[\e[0m\] '
+PS1_MAIN='\[\e[1;32m\]\u\[\e[0m\] \[\e[1;77m\]@\[\e[0m\] \[\e[1;35m\]\h\[\e[0m\]: \[\e[1;33m\]\W\[\e[0m\]'
+PS1_ARROW='\[\e[1;77m\]→ \[\e[0m\]'
+
+PS1="$PS1_MAIN $PS1_ARROW "
 PS2='\[\e[1;31m\]>\[\e[0m\] '
+
+show_git_branch() {
+    if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]; then
+        export PS1="$PS1_MAIN \[\e[1;36m\]($(git branch | grep '*' | cut -d' ' -f2))\[\e[0m\] $PS1_ARROW "
+    else
+        export PS1="$PS1_MAIN $PS1_ARROW "
+    fi
+}
+
+PROMPT_COMMAND='show_git_branch'
 
 [ -z "$PS1" ] && return
 
-# Aliases
 alias ls='ls -G'
 alias ll='ls -l'
 alias la='ls -a'
@@ -13,10 +24,10 @@ alias mv='mv -i'
 alias cp='cp -i'
 alias vi='vim'
 
-# Set vi command line editing mode
 set -o vi
 
 export GOPATH='/Users/pjhades/code/go'
+export GOBIN="$GOPATH/bin"
 export PATH="$PATH:$GOPATH/bin"
 
 export HISTCONTROL=ignoredups
