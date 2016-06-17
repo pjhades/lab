@@ -6,7 +6,7 @@ PS2='\[\e[1;31m\]>\[\e[0m\] '
 
 show_git_branch() {
     if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]; then
-        export PS1="$PS1_MAIN \[\e[1;36m\]($(git branch | grep '*' | cut -d' ' -f2))\[\e[0m\] $PS1_ARROW "
+        export PS1="$PS1_MAIN \[\e[1;36m\]($(git branch | grep '*' | sed 's/^\* //g'))\[\e[0m\] $PS1_ARROW "
     else
         export PS1="$PS1_MAIN $PS1_ARROW "
     fi
