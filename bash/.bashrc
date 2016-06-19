@@ -1,18 +1,5 @@
-PS1_MAIN='\n\[\e[1;32m\]\u\[\e[0m\] \[\e[1;77m\]@\[\e[0m\] \[\e[1;35m\]\h\[\e[0m\]: \[\e[1;33m\]\W\[\e[0m\]'
-PS1_ARROW='\[\e[1;77m\]→ \[\e[0m\]'
-
-PS1="$PS1_MAIN $PS1_ARROW "
+PS1='\n\[\e[1;32m\]\u\[\e[0m\] \[\e[1;77m\]@\[\e[0m\] \[\e[1;35m\]\h\[\e[0m\]: \[\e[1;33m\]\W\[\e[0m\] \[\e[1;77m\]→ \[\e[0m\]'
 PS2='\[\e[1;31m\]>\[\e[0m\] '
-
-show_git_branch() {
-    if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]; then
-        export PS1="$PS1_MAIN \[\e[1;36m\]($(git branch | grep '*' | sed 's/^\* //g'))\[\e[0m\] $PS1_ARROW "
-    else
-        export PS1="$PS1_MAIN $PS1_ARROW "
-    fi
-}
-
-PROMPT_COMMAND='show_git_branch'
 
 [ -z "$PS1" ] && return
 
