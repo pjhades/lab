@@ -35,3 +35,5 @@ export LESS_TERMCAP_us=$'\E[01;38;5;68m' # option argument
 if [ -n "$TMUX" ]; then
     export TERM="screen-256color"
 fi
+
+source /usr/local/Cellar/autojump/22.3.0/etc/autojump.sh
