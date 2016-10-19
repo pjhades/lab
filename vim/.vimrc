@@ -4,19 +4,15 @@ filetype off
 
 set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'fatih/vim-go'
 Plugin 'dag/vim-fish'
+Plugin 'vim-erlang/vim-erlang-runtime'
 call vundle#end()
 filetype plugin indent on
-
-"let g:go_fmt_autosave = 0
-
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
-
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'flazz/vim-colorschemes'
