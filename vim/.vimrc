@@ -17,6 +17,7 @@ Plugin 'Lokaltog/vim-powerline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'nickhutchinson/vim-systemtap'
 
 syntax enable
 syntax on
