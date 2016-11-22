@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/pjhades/code/lab/try/s3fs-fuse/src'
-let g:netrw_dirhist_2='/Users/pjhades/code/lab/try/self-modifying-card/src'
-let g:netrw_dirhist_3='/Users/pjhades/code/lab/try/self-modifying-card/src/javascripts'
-let g:netrw_dirhist_4='/Users/pjhades/code/lab/try/self-modifying-card/src'
-let g:netrw_dirhist_5='/Users/pjhades/code/github.com/self-modifying-card/src'
-let g:netrw_dirhist_6='/Users/pjhades/code/rtfsc/linux-2.6.24'
