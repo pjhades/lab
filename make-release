@@ -1,0 +1,152 @@
+#!/usr/bin/env bash
+
+set -o errexit -o nounset -o pipefail
+
+VERSION_FILE='./src/version.h'
+action_dry_run=false
+action_tag=false
+action_bump=false
+version=''
+
+die() {
+    echo "$@"
+    exit 1
+}
+
+usage() {
+    cat <<EOF
+$(basename $0): Make a tagged release
+Usage: $(basename $0) [OPTIONS]
+Options:
+  -b, --bump=VER  Bump version to VER, which has format <int>.<int>.<int>[rc<int>].
+                  This will create a versioning branch, update the versioning files,
+                  and commit/push the changes. Then you could open a pull-request
+                  on this branch. Once the pull-request is approved, you could use
+                  the -t/--tag option to create an annotated tag
+  -t, --tag       Create a git tag on the current branch. This should be run on the
+                  version-bumping branch (normally created with the -b flag) whose
+                  corresponding pull request has been approved
+  -n, --dry-run   Print the actions rather than actually perform them
+  -h, --help      Show this message and exit
+EOF
+}
+
+maybe() {
+    if $action_dry_run; then
+        echo "$@"
+    else
+        "$@"
+    fi
+}
+
+check_version_sanity() {
+    [[ "$1" =~ ^[0-9]+(\.[0-9]+){2}(rc[0-9]+)?$ ]]
+}
+
+update_version_header() {
+    local maj
+    local min
+    local pat
+    local rc
+    maj="$1"
+    min="$2"
+    pat="$3"
+    rc="${4:--1}"
+    cat >"$VERSION_FILE" <<EOF
+#pragma once
+#define VERSION_MAJOR $maj
+#define VERSION_MINOR $min
+#define VERSION_PATCH $pat
+#define VERSION_RC $rc
+EOF
+}
+
+main() {
+    local argv
+    argv=$(getopt --unquoted \
+                  --options 'hnb:t' \
+                  --longoptions dry-run,help,bump:,tag \
+                  -- "$@")
+
+    set -- $argv
+
+    while true; do
+        case $1 in
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            -n|--dry-run)
+                action_dry_run=true
+                shift
+                ;;
+            -b|--bump)
+                action_bump=true
+                version=$2
+                shift 2
+                ;;
+            -t|--tag)
+                action_tag=true
+                shift
+                ;;
+            --)
+                shift
+                break
+                ;;
+            *)
+                echo "Unknown argument: $1"
+                exit 1
+                ;;
+        esac
+    done
+
+    if ! "$action_bump" && ! "$action_tag"; then
+        die "No action specified?"
+    elif "$action_bump" && "$action_tag"; then
+        die "Only one of -b/--bump and -t/--tag can be specified"
+    fi
+
+    current_branch=$(git symbolic-ref --short -q HEAD)
+
+    if "$action_bump"; then
+        if ! check_version_sanity "$version"; then
+            die "Specified version tag '$version' does not match the form <int>.<int>.<int>[rc<int>]"
+        fi
+
+        if [ "$current_branch" != master ]; then
+            die 'You should be on master to make a new version'
+        fi
+
+        version_fields=($(sed -n 's/^\([0-9]\+\)\.\([0-9]\+\)\.\([0-9]\+\)\(rc\([0-9]\+\)\)\?$/\1 \2 \3 \5/g;p' <<<"$version"))
+
+        maybe git pull
+        maybe git checkout -b "$version"
+        maybe touch "$version"
+        #maybe update_version_header "${version_fields[@]}"
+        #maybe make clean
+        #maybe make
+        #maybe make test
+        maybe git add "$version"
+        maybe git commit -m "Bump version to $version"
+        maybe git push origin "$version"
+    else
+        if ! check_version_sanity "$current_branch"; then
+            die "Your current branch is not a versioning branch"
+        fi
+
+        if [ -n "$(git status --porcelain)" ]; then
+            die 'You have uncommitted changes on your current branch'
+        fi
+
+        if git branch --no-merged master | grep -q "$current_branch"; then
+            die 'Current branch is not merged into master yet'
+        fi
+
+        maybe git checkout master
+        maybe git tag -a "$current_branch"
+        maybe git push origin "$current_branch"
+        maybe git branch -d "$current_branch"
+    fi
+}
+
+main "$@"
