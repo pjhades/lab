@@ -143,9 +143,9 @@ main() {
         fi
 
         maybe git checkout master
+        maybe git branch -d "$current_branch"
         maybe git tag -a "$current_branch"
         maybe git push origin "$current_branch"
-        maybe git branch -d "$current_branch"
     fi
 }
 
